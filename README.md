@@ -15,8 +15,8 @@ I'm excited to be a part of the 30 Days of LeetCode challenge organized by Googl
 
 | Day | Date       | LeetCode Problem                                            |
 |----|------------|------------------------------------------------------------|
-| 1  | [Date]     | [Link to Problem 1]                                       |
-| 2  | [Date]     | [Link to Problem 2]                                       |
+| 1  | 3/11/24     | https://leetcode.com/problems/single-number/              |
+| 2  | 3/12/24     | https://leetcode.com/problems/product-of-array-except-self/|
 | ...| ...        | ...                                                        |
 | 30 | [Date]     | [Link to Problem 30]                                      |
 
