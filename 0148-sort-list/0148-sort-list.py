@@ -4,10 +4,47 @@
 #         self.val = val
 #         self.next = next
 class Solution:
+    def sortList(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+
+        mid = self.find_middle(head)
+        left = head
+        right = mid.next
+        mid.next = None
+
+        left_sorted = self.sortList(left)
+        right_sorted = self.sortList(right)
+
+        return self.merge(left_sorted, right_sorted)
+
+    def find_middle(self, head):
+        slow = head
+        fast = head
+        prev = None
+
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+
+        return prev
+
     def merge(self, left, right):
-        dummy = ListNode()
-        current = dummy
-        
+        if not left:
+            return right
+        if not right:
+            return left
+
+        if left.val < right.val:
+            head = left
+            left = left.next
+        else:
+            head = right
+            right = right.next
+
+        current = head
+
         while left and right:
             if left.val < right.val:
                 current.next = left
@@ -16,52 +53,6 @@ class Solution:
                 current.next = right
                 right = right.next
             current = current.next
-        
-        if left:
-            current.next = left
-        elif right:
-            current.next = right
-        
-        while current.next:
-            current = current.next
-        
-        return dummy.next
+        current.next = left if left else right
 
-    def split(self, head, step):
-        i = 1
-        while head and i < step:
-            head = head.next
-            i += 1
-        if not head:
-            return None
-        next_head = head.next
-        head.next = None
-        return next_head
-
-    def sortList(self, head: ListNode) -> ListNode:
-        if not head or not head.next:
-            return head
-
-        length = 0
-        current = head
-        while current:
-            length += 1
-            current = current.next
-
-        dummy = ListNode()
-        dummy.next = head
-
-        step = 1
-        while step < length:
-            current = dummy.next
-            tail = dummy
-            while current:
-                left = current
-                right = self.split(left, step)
-                current = self.split(right, step)
-                tail.next = self.merge(left, right) # Fix here
-                while tail.next:
-                    tail = tail.next
-            step *= 2
-
-        return dummy.next
+        return head     
